@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fakestore</title>
-    <script type="module" src="../JS/config.js" defer></script>
     <link rel="stylesheet" href="/Css/style.css">
 </head>
 <body>
@@ -22,7 +21,22 @@
         </div>
     </header>
     <main>
-        <h2 style="text-align:center;margin:32px 0 16px;"></h2>
+        <h2 style="text-align:center;margin:32px 0 16px;">Productos</h2>
         <section class="grid" id="grid"></section>
     </main>
+    <script>
+      fetch('https://fakestoreapi.com/products')
+        .then(res => res.json())
+        .then(productos => {
+          const grid = document.getElementById('grid');
+          grid.innerHTML = productos.map(producto => `
+            <div class="card">
+              <img src="${producto.image}" alt="${producto.title}" />
+              <div>${producto.title}</div>
+              <div class="price">$${producto.price}</div>
+            </div>
+          `).join('');
+        });
+    </script>
 </body>
+</html>
