@@ -43,25 +43,39 @@ function aplicarConfiguraciones() {
 }
 aplicarConfiguraciones();
 window.addEventListener('storage', aplicarConfiguraciones);
-
-// Renderizar producto
-const producto = JSON.parse(localStorage.getItem('productoDetalle'));
+/ Obtener el ID del producto desde la URL
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
 const cont = document.getElementById('detalleProducto');
-if(producto) {
-  cont.innerHTML = `
-    <div class="detalle-img" style="flex:1;display:flex;justify-content:center;align-items:center;">
-      <img src="${producto.image}" alt="${producto.title}" style="max-width:350px;max-height:350px;border-radius:18px;background:#fff;border:1px solid #e0e0e0;box-shadow:0 2px 12px rgba(0,0,0,0.04);" />
-    </div>
-    <div class="detalle-info" style="flex:1;display:flex;flex-direction:column;gap:18px;">
-      <h2 style="margin:0 0 8px;">${producto.title}</h2>
-      <div style="font-size:1.2rem;color:#d1bfa7;font-weight:700;">$${producto.price}</div>
-      <div style="color:#888;font-size:1rem;">${producto.category}</div>
-      <p style="font-size:1rem;line-height:1.5;">${producto.description}</p>
-      <button onclick="agregarAlCarritoDetalle(${producto.id}, '${producto.title}', ${producto.price})" style="background:var(--accent);color:#fff;font-weight:600;padding:12px 24px;border-radius:10px;border:none;cursor:pointer;">${t.add}</button>
-    </div>
-  `;
+
+// Renderizar producto desde el API
+if (id) {
+  fetch(`https://fakestoreapi.com/products/${id}`)
+    .then(res => res.json())
+    .then(producto => {
+      cont.innerHTML = `
+        <div class="detalle-img" style="flex:1;display:flex;justify-content:center;align-items:center;">
+          <img src="${producto.image}" alt="${producto.title}" style="max-width:350px;max-height:350px;border-radius:18px;background:#fff;border:1px solid #e0e0e0;box-shadow:0 2px 12px rgba(0,0,0,0.04);" />
+        </div>
+        <div class="detalle-info" style="flex:1;display:flex;flex-direction:column;gap:18px;">
+          <h2 style="margin:0 0 8px;">${producto.title}</h2>
+          <div style="font-size:1.2rem;color:#d1bfa7;font-weight:700;">$${producto.price}</div>
+          <div style="color:#888;font-size:1rem;">${producto.category}</div>
+          <p style="font-size:1rem;line-height:1.5;">${producto.description}</p>
+          <button onclick="agregarAlCarritoDetalle(${producto.id})" style="background:var(--accent);color:#fff;font-weight:600;padding:12px 24px;border-radius:10px;border:none;cursor:pointer;">Agregar al carrito</button>
+        </div>
+      `;
+      localStorage.setItem('productoDetalle', JSON.stringify(producto)); // Opcional
+    })
+    .catch(() => {
+      cont.innerHTML = '<p>No se pudo cargar el producto.</p>';
+    });
+} else {
+  cont.innerHTML = '<p>Producto no especificado.</p>';
 }
-function agregarAlCarritoDetalle(id, title, price) {
+
+// Función para agregar al carrito
+function agregarAlCarritoDetalle(id) {
   let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
   const producto = JSON.parse(localStorage.getItem('productoDetalle'));
   const idx = carrito.findIndex(item => item.id === id);
