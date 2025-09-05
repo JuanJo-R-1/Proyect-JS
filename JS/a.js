@@ -1,5 +1,3 @@
-//import { dataFromRequest } from './task.js'
-
 let carrito = [];
 
 function actualizarCarrito() {
