@@ -3,41 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fakestore</title>
+    <title>Help - Fakestore</title>
     <link rel="stylesheet" href="/Css/style.css">
 </head>
 <body>
     <header class="navbar">
         <div class="logo">Fakestore</div>
         <nav>
-            <a href="index.html" class="navbarOptions" style="color:#d1bfa7;font-weight:700;">Store</a>
+            <a href="index.html" class="navbarOptions">Store</a>
             <a href="shopcart.html"class="navbarOptions">Shopping kart</a>
             <a href="contacts.html" class="navbarOptions">Contacts</a>
             <a href="config.html" class="navbarOptions">Configuration</a>
-            <a href="support.html" class="navbarOptions">Help</a>
+            <a href="support.html" class="navbarOptions" style="color:#d1bfa7;font-weight:700;">Help</a>
         </nav>
         <div class="cart">
             <span>Kart (0)</span>
         </div>
     </header>
-    <main>
-        <h2 style="text-align:center;margin:32px 0 16px;">Products</h2>
-        <section class="grid" id="grid"></section>
-    </main>
-    <script>
-      fetch('https://fakestoreapi.com/products')
-        .then(res => res.json())
-        .then(productos => {
-          const grid = document.getElementById('grid');
-          grid.innerHTML = productos.map(producto => `
-            <div class="card">
-              <img src="${producto.image}" alt="${producto.title}" />
-              <div>${producto.title}</div>
-              <div class="price">$${producto.price}</div>
-            </div>
-          `).join('');
-        });
-    </script>
     <script>
 // Guardar y aplicar configuraciones globales
 function aplicarConfiguraciones() {
@@ -59,8 +41,6 @@ function aplicarConfiguraciones() {
 }
 
 aplicarConfiguraciones();
-
-// Actualizar productos al cambiar preferencia de visualización
 window.addEventListener('storage', aplicarConfiguraciones);
 </script>
   </body>
