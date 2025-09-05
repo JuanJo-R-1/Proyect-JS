@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--
 Propósito: Página de detalle de producto. Muestra información ampliada, imagen, precio, categoría y descripción. Permite agregar el producto al carrito. Diseño claro y responsivo.
 -->
@@ -103,3 +104,105 @@ function agregarAlCarritoDetalle(id, title, price) {
 </style>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto</title>
+    <link rel="stylesheet" href="/Css/style.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">Fakestore</div>
+        <nav>
+            <a href="index.html" class="navbarOptions">Store</a>
+            <a href="shopcart.html" class="navbarOptions">Shopping kart</a>
+            <a href="contacts.html" class="navbarOptions">Contacts</a>
+            <a href="config.html" class="navbarOptions">Configuration</a>
+            <a href="support.html" class="navbarOptions">Help</a>
+        </nav>
+        <div class="cart">
+            <span>Kart (0)</span>
+        </div>
+    </header>
+    <main>
+        <section class="detalle-producto" id="detalleProducto" style="display:flex;gap:40px;align-items:center;max-width:900px;margin:40px auto 0;">
+            <!-- Aquí se renderiza el producto -->
+        </section>
+    </main>
+    <script>
+// Configuraciones globales
+function aplicarConfiguraciones() {
+  if(localStorage.getItem('modoOscuro') === 'true') {
+    document.body.classList.add('dark-mode');
+  } else {
+    document.body.classList.remove('dark-mode');
+  }
+  const idioma = localStorage.getItem('idioma') || 'es';
+  document.documentElement.lang = idioma;
+}
+aplicarConfiguraciones();
+window.addEventListener('storage', aplicarConfiguraciones);
+
+// Renderizar producto
+const producto = JSON.parse(localStorage.getItem('productoDetalle'));
+const cont = document.getElementById('detalleProducto');
+if(producto) {
+  cont.innerHTML = `
+    <div class="detalle-img" style="flex:1;display:flex;justify-content:center;align-items:center;">
+      <img src="${producto.image}" alt="${producto.title}" style="max-width:350px;max-height:350px;border-radius:18px;background:#fff;border:1px solid #e0e0e0;box-shadow:0 2px 12px rgba(0,0,0,0.04);" />
+    </div>
+    <div class="detalle-info" style="flex:1;display:flex;flex-direction:column;gap:18px;">
+      <h2 style="margin:0 0 8px;">${producto.title}</h2>
+      <div style="font-size:1.2rem;color:#d1bfa7;font-weight:700;">$${producto.price}</div>
+      <div style="color:#888;font-size:1rem;">${producto.category}</div>
+      <p style="font-size:1rem;line-height:1.5;">${producto.description}</p>
+      <button onclick="agregarAlCarritoDetalle(${producto.id}, '${producto.title}', ${producto.price})" style="background:var(--accent);color:#fff;font-weight:600;padding:12px 24px;border-radius:10px;border:none;cursor:pointer;">Agregar al carrito</button>
+    </div>
+  `;
+}
+function agregarAlCarritoDetalle(id, title, price) {
+  let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
+  const producto = JSON.parse(localStorage.getItem('productoDetalle'));
+  const idx = carrito.findIndex(item => item.id === id);
+  if (idx !== -1) {
+    carrito[idx].cantidad = (carrito[idx].cantidad || 1) + 1;
+    carrito[idx].title = producto.title;
+    carrito[idx].price = producto.price;
+    carrito[idx].image = producto.image;
+    carrito[idx].category = producto.category;
+  } else {
+    carrito.push({
+      id: producto.id,
+      title: producto.title,
+      price: producto.price,
+      image: producto.image,
+      category: producto.category,
+      cantidad: 1
+    });
+  }
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+  alert('Producto agregado al carrito');
+}
+</script>
+<style>
+@media (max-width: 900px) {
+  .detalle-producto {
+    flex-direction: column !important;
+    gap: 24px !important;
+    align-items: flex-start !important;
+  }
+  .detalle-img img {
+    max-width: 90vw !important;
+    max-height: 250px !important;
+  }
+  .detalle-info {
+    width: 100% !important;
+  }
+}
+</style>
+</body>
+</html>
+>>>>>>> 178764ac937563fe0cf915010092dde7895a8f81
