@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*
 Propósito: Lógica principal del marketplace. Maneja la carga y renderizado de productos, filtrado, búsqueda, orden, gestión del carrito, animaciones y navegación entre páginas. Utiliza localStorage para persistencia y configuración global.
 */
@@ -171,7 +170,7 @@ window.verProducto = function(id) {
   localStorage.setItem('productoDetalle', JSON.stringify(productosGlobal.find(p => p.id === id)));
   window.location.href = 'detalle.html';
 }
-=======
+
 let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
 let productosGlobal = [];
 
@@ -339,4 +338,3 @@ window.verProducto = function(id) {
   localStorage.setItem('productoDetalle', JSON.stringify(productosGlobal.find(p => p.id === id)));
   window.location.href = 'detalle.html';
 }
->>>>>>> 178764ac937563fe0cf915010092dde7895a8f81
