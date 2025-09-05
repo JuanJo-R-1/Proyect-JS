@@ -1,3 +1,6 @@
+<!--
+Propósito: Página de soporte técnico. Incluye formulario de contacto para dudas o problemas, con campos de nombre, correo y mensaje. Diseño accesible y multilingüe.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,17 +39,21 @@
         </section>
     </main>
     <script>
+
 // Guardar y aplicar configuraciones globales
 function aplicarConfiguraciones() {
+
   // Modo oscuro
   if(localStorage.getItem('modoOscuro') === 'true') {
     document.body.classList.add('dark-mode');
   } else {
     document.body.classList.remove('dark-mode');
   }
+
   // Idioma
   const idioma = localStorage.getItem('idioma') || 'es';
   document.documentElement.lang = idioma;
+  
   // Preferencia de visualización
   const vista = localStorage.getItem('vista') || 'grid';
   const grid = document.getElementById('grid');

@@ -31,3 +31,33 @@
 
         </section>
     </main>
+    <script>
+    function aplicarConfiguraciones() {
+
+  // Modo oscuro
+  if(localStorage.getItem('modoOscuro') === 'true') {
+    document.body.classList.add('dark-mode');
+  } else {
+    document.body.classList.remove('dark-mode');
+  }
+
+  // Idioma
+  const idioma = localStorage.getItem('idioma') || 'es';
+  document.documentElement.lang = idioma;
+  
+  // Preferencia de visualización
+  const vista = localStorage.getItem('vista') || 'grid';
+  const grid = document.getElementById('grid');
+  if(grid) {
+    grid.className = vista;
+  }
+}
+
+aplicarConfiguraciones();
+window.addEventListener('storage', aplicarConfiguraciones);
+</script>
+  </body>
+</html>
+
+</script>
+</body>

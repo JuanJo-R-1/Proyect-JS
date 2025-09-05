@@ -1,3 +1,6 @@
+/*
+Propósito: Lógica principal del marketplace. Maneja la carga y renderizado de productos, filtrado, búsqueda, orden, gestión del carrito, animaciones y navegación entre páginas. Utiliza localStorage para persistencia y configuración global.
+*/
 let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
 let productosGlobal = [];
 
@@ -114,10 +117,8 @@ function filtrarYRenderizar() {
 }
 
 window.agregarAlCarrito = function(event, id) {
-  console.log('agregarAlCarrito called', event, id);
   event.stopPropagation();
   const producto = productosGlobal.find(p => p.id === id);
-  console.log('producto encontrado:', producto);
   let carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
   const idx = carrito.findIndex(item => item.id === id);
   if (idx !== -1) {
@@ -137,8 +138,12 @@ window.agregarAlCarrito = function(event, id) {
     });
   }
   localStorage.setItem('carrito', JSON.stringify(carrito));
-  carrito = JSON.parse(localStorage.getItem('carrito') || '[]');
   actualizarCarrito();
+  // Animación pulse en el botón
+  if(event.target && event.target.classList) {
+    event.target.classList.add('pulse');
+    setTimeout(() => event.target.classList.remove('pulse'), 400);
+  }
 }
 
 window.agregarAlCarritoDetalle = function(id, title, price) {

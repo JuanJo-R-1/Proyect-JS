@@ -1,3 +1,6 @@
+<!--
+Propósito: Página de detalle de producto. Muestra información ampliada, imagen, precio, categoría y descripción. Permite agregar el producto al carrito. Diseño claro y responsivo.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,10 +25,12 @@
     </header>
     <main>
         <section class="detalle-producto" id="detalleProducto" style="display:flex;gap:40px;align-items:center;max-width:900px;margin:40px auto 0;">
+            
             <!-- Aquí se renderiza el producto -->
         </section>
     </main>
     <script>
+        
 // Configuraciones globales
 function aplicarConfiguraciones() {
   if(localStorage.getItem('modoOscuro') === 'true') {
@@ -52,7 +57,7 @@ if(producto) {
       <div style="font-size:1.2rem;color:#d1bfa7;font-weight:700;">$${producto.price}</div>
       <div style="color:#888;font-size:1rem;">${producto.category}</div>
       <p style="font-size:1rem;line-height:1.5;">${producto.description}</p>
-      <button onclick="agregarAlCarritoDetalle(${producto.id}, '${producto.title}', ${producto.price})" style="background:var(--accent);color:#fff;font-weight:600;padding:12px 24px;border-radius:10px;border:none;cursor:pointer;">Agregar al carrito</button>
+      <button onclick="agregarAlCarritoDetalle(${producto.id}, '${producto.title}', ${producto.price})" style="background:var(--accent);color:#fff;font-weight:600;padding:12px 24px;border-radius:10px;border:none;cursor:pointer;">${t.add}</button>
     </div>
   `;
 }

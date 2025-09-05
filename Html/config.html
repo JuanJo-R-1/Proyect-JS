@@ -1,3 +1,69 @@
+<!--
+Propósito: Página de configuración global del marketplace. Permite al usuario seleccionar idioma, activar modo oscuro y elegir la preferencia de visualización (grid/lista). Las opciones se guardan en localStorage y se aplican en todas las páginas. Diseño accesible y multilingüe.
+-->
+<script>
+
+// Traducción básica de textos y actualización dinámica
+const traducciones = {
+  es: {
+    store: 'Tienda',
+    cart: 'Carrito',
+    contacts: 'Contactos',
+    config: 'Configuración',
+    help: 'Ayuda',
+    configTitle: 'Configuraciones',
+    idioma: 'Idioma:',
+    dark: 'Modo oscuro:',
+    view: 'Preferencias de visualización:',
+    grid: 'Cuadrícula',
+    list: 'Lista',
+    save: 'Guardar cambios',
+    logo: 'Fakestore',
+    cartCount: 'Carrito (0)'
+  },
+  en: {
+    store: 'Store',
+    cart: 'Kart',
+    contacts: 'Contacts',
+    config: 'Configuration',
+    help: 'Help',
+    configTitle: 'Settings',
+    idioma: 'Language:',
+    dark: 'Dark mode:',
+    view: 'View preferences:',
+    grid: 'Grid',
+    list: 'List',
+    save: 'Save changes',
+    logo: 'Fakestore',
+    cartCount: 'Kart (0)'
+  }
+};
+function aplicarTraduccionConfig(idioma) {
+  const t = traducciones[idioma] || traducciones['es'];
+  document.querySelector('.logo').textContent = t.logo;
+  document.querySelector('a[href="index.html"]').textContent = t.store;
+  document.querySelector('a[href="shopcart.html"]').textContent = t.cart;
+  document.querySelector('a[href="contacts.html"]').textContent = t.contacts;
+  document.querySelector('a[href="config.html"]').textContent = t.config;
+  document.querySelector('a[href="support.html"]').textContent = t.help;
+  document.querySelector('.cart span').textContent = t.cartCount;
+  document.querySelector('main h2').textContent = t.configTitle;
+  document.querySelector('label[for="idioma"]').textContent = t.idioma;
+  document.querySelector('label[for="modoOscuro"]').textContent = t.dark;
+  document.querySelector('label[for="vista"]').textContent = t.view;
+  document.querySelector('option[value="grid"]').textContent = t.grid;
+  document.querySelector('option[value="list"]').textContent = t.list;
+  document.querySelector('button[type="submit"]').textContent = t.save;
+}
+document.addEventListener('DOMContentLoaded', function() {
+  const idioma = localStorage.getItem('idioma') || 'es';
+  aplicarTraduccionConfig(idioma);
+  document.getElementById('idioma').value = idioma;
+  document.getElementById('idioma').addEventListener('change', function() {
+    aplicarTraduccionConfig(this.value);
+  });
+});
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,6 +113,7 @@
         </section>
     </main>
     <script>
+
       // Modo oscuro
       const modoOscuro = document.getElementById('modoOscuro');
       modoOscuro.addEventListener('change', function() {
@@ -56,27 +123,33 @@
           document.body.classList.remove('dark-mode');
         }
       });
+
       // Idioma (solo cambia el atributo lang)
       document.getElementById('idioma').addEventListener('change', function() {
         document.documentElement.lang = this.value;
       });
+
       // Preferencias de visualización (solo muestra alerta de ejemplo)
       document.getElementById('vista').addEventListener('change', function() {
         alert('Preferencia de visualización cambiada a: ' + this.value);
       });
     </script>
     <script>
+
     // Guardar y aplicar configuraciones globales
     function aplicarConfiguraciones() {
+
       // Modo oscuro
       if(localStorage.getItem('modoOscuro') === 'true') {
         document.body.classList.add('dark-mode');
       } else {
         document.body.classList.remove('dark-mode');
       }
+
       // Idioma
       const idioma = localStorage.getItem('idioma') || 'es';
       document.documentElement.lang = idioma;
+
       // Preferencia de visualización
       const vista = localStorage.getItem('vista') || 'grid';
       const grid = document.getElementById('grid');
@@ -116,6 +189,7 @@
     if(document.getElementById('vista')) {
       document.getElementById('vista').addEventListener('change', function() {
         localStorage.setItem('vista', this.value);
+        
         // Aquí podrías cambiar la visualización en la página de productos
       });
     }
