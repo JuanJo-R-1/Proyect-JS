@@ -755,8 +755,7 @@ main {
   min-width: 220px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.04);
   border: 1px solid var(--gray-light);
-  display: flex;>>>>>>> 178764ac937563fe0cf915010092dde7895a8f81
-
+  display: flex;
   flex-direction: column;
   gap: 18px;
 }

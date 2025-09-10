@@ -1,6 +1,5 @@
 <!--
 Propósito: Página de detalle de producto. Muestra información ampliada, imagen, precio, categoría y descripción. Permite agregar el producto al carrito. Diseño claro y responsivo.
--->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +14,7 @@ Propósito: Página de detalle de producto. Muestra información ampliada, image
         <nav>
             <a href="index.html" class="navbarOptions">Store</a>
             <a href="shopcart.html" class="navbarOptions">Shopping kart</a>
+            <a href="favorite.html" class="navbarOptions">Favorites</a>
             <a href="contacts.html" class="navbarOptions">Contacts</a>
             <a href="config.html" class="navbarOptions">Configuration</a>
             <a href="support.html" class="navbarOptions">Help</a>
@@ -26,7 +26,7 @@ Propósito: Página de detalle de producto. Muestra información ampliada, image
     <main>
         <section class="detalle-producto" id="detalleProducto" style="display:flex;gap:40px;align-items:center;max-width:900px;margin:40px auto 0;">
             
-            <!-- Aquí se renderiza el producto -->
+            Aquí se renderiza el producto
         </section>
     </main>
     <script>
@@ -43,7 +43,7 @@ function aplicarConfiguraciones() {
 }
 aplicarConfiguraciones();
 window.addEventListener('storage', aplicarConfiguraciones);
-/ Obtener el ID del producto desde la URL
+/Obtener el ID del producto desde la URL
 const params = new URLSearchParams(window.location.search);
 const id = params.get('id');
 const cont = document.getElementById('detalleProducto');
@@ -98,22 +98,23 @@ function agregarAlCarritoDetalle(id) {
   localStorage.setItem('carrito', JSON.stringify(carrito));
   alert('Producto agregado al carrito');
 }
-</script>
-<style>
-@media (max-width: 900px) {
-  .detalle-producto {
-    flex-direction: column !important;
-    gap: 24px !important;
-    align-items: flex-start !important;
+  </script>
+  <style>
+  @media (max-width: 900px) {
+    .detalle-producto {
+      flex-direction: column !important;
+      gap: 24px !important;
+      align-items: flex-start !important;
+    }
+    .detalle-img img {
+      max-width: 90vw !important;
+      max-height: 250px !important;
+    }
+    .detalle-info {
+      width: 100% !important;
+    }
   }
-  .detalle-img img {
-    max-width: 90vw !important;
-    max-height: 250px !important;
-  }
-  .detalle-info {
-    width: 100% !important;
-  }
-}
-</style>
+  </style>
 </body>
 </html>
+-->
